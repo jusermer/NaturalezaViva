@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="NaturalezaViva.Api/NaturalezaViva.Api.csproj" />
+  <Project Path="NaturalezaViva.Application/NaturalezaViva.Application.csproj" />
+  <Project Path="NaturalezaViva.Domain/NaturalezaViva.Domain.csproj" />
+  <Project Path="NaturalezaViva.Infrastructure/NaturalezaViva.Infrastructure.csproj" />
+</Solution>
