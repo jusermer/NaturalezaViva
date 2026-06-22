@@ -4,6 +4,7 @@ using NaturalezaViva.Application.Interfaces;
 using NaturalezaViva.Domain.Entities;
 using NaturalezaViva.Domain.Interfaces;
 using NaturalezaViva.Domain.ValueObjects;
+using NaturalezaViva.Application.Mappers;
 
 namespace NaturalezaViva.Application.Services.Auth;
 
@@ -53,7 +54,7 @@ public class AuthService : IAuthService
         return new AuthResponseDto
         {
             Token = token,
-            User = MapToResponseDto(user)
+            User = UserMapper.ToResponseDto(user)
         };
     }
 
@@ -74,7 +75,7 @@ public class AuthService : IAuthService
         return new AuthResponseDto
         {
             Token = token,
-            User = MapToResponseDto(user)
+            User = UserMapper.ToResponseDto(user)
         };
     }
 
@@ -118,17 +119,4 @@ public class AuthService : IAuthService
         await _userRepository.UpdateAsync(user);
     }
 
-    // ─── Mapeo privado ──────────────────────────────────────────
-    private static UserResponseDto MapToResponseDto(User user) => new()
-    {
-        Id = user.Id,
-        Name = user.Name,
-        Email = user.Email.Value,
-        DocumentType = user.Document.Type.ToString(),
-        DocumentNumber = user.Document.Number,
-        Role = user.Role.ToString(),
-        IsActive = user.IsActive,
-        CreatedAt = user.CreatedAt,
-        UpdatedAt = user.UpdatedAt
-    };
 }

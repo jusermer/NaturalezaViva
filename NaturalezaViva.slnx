@@ -1,4 +1,7 @@
 <Solution>
+  <Folder Name="/Elementos de la solución/">
+    <File Path=".gitignore" />
+  </Folder>
   <Project Path="NaturalezaViva.Api/NaturalezaViva.Api.csproj" />
   <Project Path="NaturalezaViva.Application/NaturalezaViva.Application.csproj" />
   <Project Path="NaturalezaViva.Domain/NaturalezaViva.Domain.csproj" />
