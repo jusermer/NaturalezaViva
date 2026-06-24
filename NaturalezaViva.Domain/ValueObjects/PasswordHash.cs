@@ -7,9 +7,9 @@ public class PasswordHash : IEquatable<PasswordHash>
     public string Value { get; }
 
     // Constructor privado — solo se crea desde los factory methods
-    private PasswordHash(string hashedValue)
+    private PasswordHash(string value)
     {
-        Value = hashedValue;
+        Value = value;
     }
 
     // ─── Factory Methods ──────────────────────────────────────────
