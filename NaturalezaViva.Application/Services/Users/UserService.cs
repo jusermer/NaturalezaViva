@@ -21,7 +21,7 @@ public class UserService : IUserService
         var user = await _userRepository.GetByIdAsync(id);
 
         if (user is null)
-            throw new DomainException("Usuario no encontrado.");
+            throw new NotFoundException("Usuario no encontrado.");
 
         return UserMapper.ToResponseDto(user);
     }
@@ -38,7 +38,7 @@ public class UserService : IUserService
         var user = await _userRepository.GetByIdAsync(userId);
 
         if (user is null)
-            throw new DomainException("Usuario no encontrado.");
+            throw new NotFoundException("Usuario no encontrado.");
 
         var newEmail = new Email(request.Email);
 
@@ -62,7 +62,7 @@ public class UserService : IUserService
         var user = await _userRepository.GetByIdAsync(userId);
 
         if (user is null)
-            throw new DomainException("Usuario no encontrado.");
+            throw new NotFoundException("Usuario no encontrado.");
 
         if (request.IsActive)
             user.Activate();
