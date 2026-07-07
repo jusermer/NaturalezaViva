@@ -19,6 +19,15 @@ builder.Services.AddControllers();
 
 // ─── Swagger ────────────────────────────────────────────────────
 builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowReactApp", policy =>
+    {
+        policy.WithOrigins("http://localhost:5173")
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
 builder.Services.AddSwaggerGen(options =>
 {
     options.AddSecurityDefinition("Bearer", new Microsoft.OpenApi.Models.OpenApiSecurityScheme
@@ -52,8 +61,16 @@ builder.Services.Configure<JwtSettings>(
     builder.Configuration.GetSection("JwtSettings"));
 
 // ─── DbContext ───────────────────────────────────────────────────
+// Después
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseSqlServer(
+        builder.Configuration.GetConnectionString("DefaultConnection"),
+        sqlOptions => sqlOptions.EnableRetryOnFailure(
+            maxRetryCount: 5,
+            maxRetryDelay: TimeSpan.FromSeconds(30),
+            errorNumbersToAdd: null
+        )
+    ));
 
 // ─── Inyección de dependencias — Domain/Application Interfaces ──
 builder.Services.AddScoped<IUserRepository, UserRepository>();
@@ -100,6 +117,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseMiddleware<ExceptionHandlingMiddleware>();
+
+app.UseCors("AllowReactApp");
 
 app.UseAuthentication();  
 app.UseAuthorization();
