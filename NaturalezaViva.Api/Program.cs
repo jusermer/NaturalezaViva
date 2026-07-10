@@ -25,7 +25,8 @@ builder.Services.AddCors(options =>
     {
         policy.WithOrigins(
                 "http://localhost:5173", 
-                "https://naturalezaviva-app-d6b5dzc3h4abb7gb.centralus-01.azurewebsites.net"
+                "https://naturalezaviva-app-d6b5dzc3h4abb7gb.centralus-01.azurewebsites.net",
+                "https://mango-ground-0e46fbe0f.7.azurestaticapps.net"
             )
             .AllowAnyHeader()
             .AllowAnyMethod();
